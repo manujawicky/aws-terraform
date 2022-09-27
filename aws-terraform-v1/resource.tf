@@ -39,3 +39,24 @@ resource "aws_s3_bucket" "bucket" {
 
 
 
+resource "aws_route_table" "routetablepublic" {
+  vpc_id = aws_vpc.MyVpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.gateway.id
+  }
+
+  tags = {
+    Name        = "RT-PUBRT-MAGRI"
+    Environment = "magri"
+    Terraform   = "true"
+  }
+}
+
+#Associate Public Route Table to Public Subnets
+resource "aws_route_table_association" "pubrtas1" {
+  subnet_id      = aws_subnet.my_subnet.id
+  route_table_id = aws_route_table.routetablepublic.id
+}
+
+

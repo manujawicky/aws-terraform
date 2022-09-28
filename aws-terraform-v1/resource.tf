@@ -14,7 +14,7 @@ resource "aws_instance" "linux" {
               yum update -y
               yum install -y httpd
               systemctl start httpd
-              systemvtl enable httpd
+              systemctl enable httpd
               EOF
 
   tags = {

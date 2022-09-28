@@ -7,6 +7,7 @@ resource "aws_instance" "linux" {
   subnet_id = aws_subnet.my_subnet.id
   vpc_security_group_ids = [aws_security_group.MyWebServerSeqGrp.id]
   depends_on = [aws_internet_gateway.gateway]
+  iam_instance_profile = aws_iam_instance_profile.iaminstanceprofile.name
 
   tags = {
     "Name" = "Linux"

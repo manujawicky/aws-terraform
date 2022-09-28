@@ -9,6 +9,14 @@ resource "aws_instance" "linux" {
   depends_on = [aws_internet_gateway.gateway]
   iam_instance_profile = aws_iam_instance_profile.iaminstanceprofile.name
 
+  user_data = <<EOF
+              #!/bin/bash
+              yum update -y
+              yum install -y httpd
+              systemctl start httpd
+              systemvtl enable httpd
+              EOF
+
   tags = {
     "Name" = "Linux"
   }
